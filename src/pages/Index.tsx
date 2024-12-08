@@ -9,9 +9,9 @@ const Index = () => {
       {/* Hero Section */}
       <section className="py-20 px-4 md:px-6 lg:px-8 bg-gradient-to-br from-[#F85A20]/5 to-gray-50">
         <div className="max-w-6xl mx-auto">
-          <div className="flex justify-center mb-12">
+          <div className="flex justify-start mb-12">
             <img 
-              src="/lovable-uploads/5203028c-6f72-4aac-9280-a400d58f04e8.png" 
+              src="/lovable-uploads/e24fa158-cf3d-4691-bc73-76dac98d01ca.png" 
               alt="Digi-Utu Logo" 
               className="h-16 md:h-20"
             />
