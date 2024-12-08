@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ArrowRight, Users, BookOpen, Building2, CheckCircle } from "lucide-react";
 import { lazy, Suspense } from 'react';
+import { SignUpForm } from "@/components/SignUpForm";
 
 const Index = () => {
   return (
@@ -127,6 +128,14 @@ const Index = () => {
           </div>
         </section>
       </Suspense>
+
+      {/* Sign Up Section */}
+      <section className="py-16 px-4 md:px-6 lg:px-8 bg-gradient-to-br from-[#F85A20]/5 to-gray-50">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-3xl font-bold text-center mb-12">Create Your Account</h2>
+          <SignUpForm />
+        </div>
+      </section>
 
       {/* Why Choose Us Section */}
       <Suspense fallback={<div className="p-4 text-center">Loading benefits...</div>}>
