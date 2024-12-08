@@ -13,7 +13,7 @@ const Index = () => {
             <img 
               src="/lovable-uploads/e24fa158-cf3d-4691-bc73-76dac98d01ca.png" 
               alt="Digi-Utu Logo" 
-              className="h-16 md:h-20"
+              className="h-20 md:h-24"
             />
           </div>
           <div className="text-center">
