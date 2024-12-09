@@ -1,10 +1,28 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ArrowRight, Users, BookOpen, Building2, CheckCircle } from "lucide-react";
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, useEffect } from 'react';
 import { SignUpForm } from "@/components/SignUpForm";
+import { useSession, useSupabaseClient } from '@supabase/auth-helpers-react';
+import { useNavigate } from 'react-router-dom';
 
 const Index = () => {
+  const session = useSession();
+  const supabase = useSupabaseClient();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      console.log("Auth state changed:", event, session);
+      if (session) {
+        // User is signed in, you can redirect them or update UI
+        console.log("User is signed in:", session.user);
+      }
+    });
+
+    return () => subscription.unsubscribe();
+  }, [supabase.auth]);
+
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}

@@ -20,6 +20,8 @@ import {
 } from "@/components/ui/select"
 import { useState } from "react"
 import { toast } from "sonner"
+import { supabase } from "@/integrations/supabase/client"
+import { useNavigate } from "react-router-dom"
 
 const formSchema = z.object({
   fullName: z.string().min(2, "Name must be at least 2 characters"),
@@ -41,6 +43,7 @@ const formSchema = z.object({
 
 export function SignUpForm() {
   const [isLoading, setIsLoading] = useState(false)
+  const navigate = useNavigate()
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -57,13 +60,31 @@ export function SignUpForm() {
     try {
       setIsLoading(true)
       console.log("Form submitted:", values)
-      // Here you would typically make an API call to register the user
-      await new Promise((resolve) => setTimeout(resolve, 1000)) // Simulated API call
-      toast.success("Account created successfully!")
+      
+      const { data, error } = await supabase.auth.signUp({
+        email: values.email,
+        password: values.password,
+        options: {
+          data: {
+            full_name: values.fullName,
+            user_type: values.userType,
+          },
+        },
+      })
+
+      if (error) {
+        console.error("Signup error:", error)
+        toast.error(error.message)
+        return
+      }
+
+      console.log("Signup successful:", data)
+      toast.success("Account created successfully! Please check your email to verify your account.")
       form.reset()
+      
     } catch (error) {
+      console.error("Unexpected error:", error)
       toast.error("Something went wrong. Please try again.")
-      console.error("Signup error:", error)
     } finally {
       setIsLoading(false)
     }
