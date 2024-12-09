@@ -59,7 +59,7 @@ export function SignUpForm() {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
       setIsLoading(true)
-      console.log("Form submitted:", values)
+      console.log("Starting signup process with values:", values)
       
       const { data, error } = await supabase.auth.signUp({
         email: values.email,
@@ -79,8 +79,11 @@ export function SignUpForm() {
       }
 
       console.log("Signup successful:", data)
-      toast.success("Account created successfully! Please check your email to verify your account.")
+      toast.success("Account created successfully!")
       form.reset()
+      
+      // Since email verification is disabled, we can redirect immediately
+      navigate("/dashboard")
       
     } catch (error) {
       console.error("Unexpected error:", error)
